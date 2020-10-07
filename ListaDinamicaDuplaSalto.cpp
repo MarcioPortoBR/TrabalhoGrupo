@@ -11,6 +11,56 @@ struct No {
 
 typedef No *NoPtr;
 
+struct Descritor {
+	No *start[3];
+	No *endL[3];
+	int Lenght;
+};
+
+void IniciaListaDeSaltoD(Descritor &D){	
+	D.start[0]=NULL;
+	D.start[1]=NULL;
+	D.start[2]=NULL;
+    	D.endL[0]=NULL;
+    	D.endL[1]=NULL;
+    	D.endL[2]=NULL;
+    	D.Lenght=0;
+}
+
+void InsereListaDeSaltoD(Descritor &D, int Limites[], int maxNivel, int Chave)
+{
+	NoPtr Aux[maxNivel], Ant[maxNivel], P;
+	int nvl, i;
+	Aux[maxNivel-1] = Descritor.start[maxNivel-1];
+	Ant[maxNivel-1] = 0;
+	for (nvl = maxNivel-1; nvl >= 0; nvl--) {
+		while ((Aux[nvl] != NULL) && (Aux[nvl]->Info < Chave)) {
+			Ant[nvl] = Aux[nvl];
+			Aux[nvl] = *(Aux[nvl]->Lig + nvl);
+		}
+		if (nvl > 0)
+			if (Ant[nvl] == NULL) {
+				Aux[nvl-1] = Descritor.start[nvl-1];
+				Ant[nvl-1] = NULL;
+			}
+			else {
+				Aux[nvl-1] = *(Ant[nvl]->Lig + nvl-1);
+				Ant[nvl-1] = Ant[nvl];
+			}
+	}
+	nvl = defineNivel(Chave);
+	P = new No;
+	P->Lig = new NoPtr[nvl+1];
+	P->Info = Chave;
+	for (i = 0; i <= nvl; i++) {
+		*(P->Lig + i) = Aux[i];
+		if (Ant[i] == NULL)
+			Descritor.start[i] = P;
+		else
+			*(Ant[i]->Lig + i) = P;
+		}
+	Descritor.Lenght++;
+}
 
 void EscolherLimites(int Limites[], int maxNivel)
 {
