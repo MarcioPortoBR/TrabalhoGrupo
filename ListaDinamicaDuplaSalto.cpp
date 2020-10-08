@@ -185,6 +185,32 @@ void imprime (NoPtr Raiz[], int maxNivel)
 
 }
 
+// Chamada
+// level = defineNivelDP([5,20],[1,2],2,15);
+// Parametros de entrada:
+//		Vetor de modulos a serem testados
+//		Vetor de nives resultantes: (resposta sera sempre o nivel definido pelo usuario)
+// 		Tamanho dos vetores: (se v[1] mod Chave então return v2[1])
+//		Numero a ser testado
+int defineNivelDP(int NiveisIn[], int NiveisOut[], int Len, int Chave){
+	for (int i=Len-1;i>=0;i--)
+		if (Chave%NiveisIn[i] == 0)
+			return NiveisOut[i];
+		return 0;
+}
+
+// Chamada
+// level = defineNivelD([5,20],2,15);
+// Parametros de entrada:
+//		Vetor de modulos a serem testados
+// 		Tamanho dos vetores: (se v[1] mod Chave então return indice(v1)+1)
+//		Numero a ser testado
+int defineNivelD(int Niveis[], int Len, int Chave){
+	for (int i=Len-1;i>=0;i--)
+		if (Chave%Niveis[i] == 0)
+			return i+1;
+		return 0;
+}
 
 
 int main()
